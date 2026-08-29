@@ -1,7 +1,7 @@
 import random
 import pygame
 
-pygame.ini()
+pygame.init()
 
 width = 600
 height = 600
@@ -17,10 +17,10 @@ speed = 20
 dx = speed
 dy = 0
 
-food_x = random.randint(0,width,snake_size)
-food_y = random.randint(0,height,snake_size)
+food_x = random.randrange(0,width,snake_size)
+food_y = random.randrange(0,height,snake_size)
 
-pygame.time.clock()
+clock = pygame.time.Clock()
 
 running = True
 
@@ -38,25 +38,25 @@ while running:
                 dy = 0
             if event.key == pygame.K_UP:
                 dx = 0
-                dy = speed
+                dy = -speed
             if event.key == pygame.K_DOWN:
                 dx = 0
-                dy = -speed
+                dy = speed
 
     head_x = snake[0][0]
     head_y = snake[0][1]
 
-    new_head = (head_x + dx,head_y + dy)
+    new_head = [head_x + dx,head_y + dy]
 
     snake.insert(0,new_head)
 
-    if food_x == head_x or food_y == head_y:
-        food_x = random.randint(0,width,snake_size)
-        food_y = random.randint(0,height,snake_size)
+    if food_x == snake[0][0] or food_y == snake[0][1]:
+        food_x = random.randrange(0,width,snake_size)
+        food_y = random.randrange(0,height,snake_size)
     else:
         snake.pop()
 
-    screen.fill(0,0,0)
+    screen.fill((0,0,0))
 
     for segment in snake:
         pygame.draw.rect(screen,(0,255,0),(segment[0],segment[1],snake_size,snake_size))
