@@ -38,6 +38,24 @@ food_y = random.randrange(border_width, height - border_width, snake_size)
 score = 0
 game_over = False
 
+#====================================================Avoiding food on top of snake=========================================
+food_x = random.randrange(border_width, width - border_width, snake_size)
+food_y = random.randrange(border_width, height - border_width, snake_size)
+
+food_on_snake = True
+
+while food_on_snake:
+
+    food_on_snake = False
+
+    for segment in snake:
+        if segment[0] == food_x and segment[1] == food_y:
+            food_on_snake = True
+
+    if food_on_snake:
+        food_x = random.randrange(border_width, width - border_width, snake_size)
+        food_y = random.randrange(border_width, height - border_width, snake_size)
+
 #=====================================================Handle events========================================================
 while running:
 
@@ -122,7 +140,9 @@ while running:
     pygame.draw.rect(screen, (255,0,0), (food_x, food_y, snake_size, snake_size))
     #pygame.draw is a module rect() draw a rectengle on the screen. It takes four arguments: the surface to draw on, the color of the rectangle, and a tuple that contains the position and size of the rectangle. The position is represented by the variables snake_x and snake_y, which are updated each time the game loop runs. The size is represented by the variable snake_size, which is constant.
 
-    pygame.draw.rect(screen, (100,30,60), (0,0,width,height), 20)
+#================================================Border of Game=============================================================================
+
+    pygame.draw.rect(screen, (150,100,10), (0,0,width,height), 20)
     #adds a border to the game.
 
 #=======================================================Pop up over screen==================================================================
